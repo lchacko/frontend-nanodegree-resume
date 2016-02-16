@@ -187,7 +187,7 @@ Challenge Problem 1
 * @description Compares 2 numbers
 * @param {number} x
 * @param {number} y
-* @returns {string} return a string representing whether x is >, < or = y
+* @returns {string} A string representing whether x is >, < or = y
 */
 function getRelationship(x,y) {
 	var invalidX = isNaN(x);
@@ -211,6 +211,7 @@ function getRelationship(x,y) {
 
 }
 
+/*
 console.log(getRelationship(1,4));
 console.log(getRelationship(1,1));
 console.log(getRelationship("that",2));
@@ -219,5 +220,210 @@ console.log(getRelationship(3));
 console.log(getRelationship("hi"));
 console.log(getRelationship(NaN));
 console.log(getRelationship(NaN, undefined));
+*/
+
+/*
+Challenge Problem 2
+*/
+
+/**
+* @description Reformats and alphabetizes array of names
+* @param {string[]} names - Array of names in 'firstname lastname' format
+* @returns {string []} Array of alphabetized names in 'lastname, firstname' format
+*/
+function alphabetizer(names) {
+
+    // Copy array
+    var newNames = names.slice();
+
+    // Reformat each name from 'firstname lastname' to 'lastname, firstname'
+    newNames.forEach(function(name, i) {
+    	var newName = name.split(" ");
+    	newNames[i] = newName[1] + ", " + newName[0];
+    });
+
+    //Sort
+    newNames.sort();
+    
+    return newNames;  
+}
+
+var moonWalkers = [
+  "Neil Armstrong",
+  "Buzz Aldrin",
+  "Pete Conrad",
+  "Alan Bean",
+  "Alan Shepard",
+  "Edgar Mitchell",
+  "David Scott",
+  "James Irwin",
+  "John Young",
+  "Charles Duke",
+  "Eugene Cernan",
+  "Harrison Schmitt"
+];
+
+/*
+// Try logging your results to test your code!
+console.log(alphabetizer(moonWalkers));
+*/
+
+/*
+Challenge Problem 3
+*/
+
+// Iterate through the localizedRuleNames in ruleResults and return an array of their strings.
+function ruleList(results) {
+    // Your code goes here!
+    var ruleResults = results.formattedResults.ruleResults;
+    var localizedRuleNames = []; 
+    var i = 0;
+
+    for (var ruleResult in ruleResults) {
+    	if (ruleResults.hasOwnProperty(ruleResult)) {
+    		var rule = ruleResults[ruleResult];
+    		if (rule.hasOwnProperty('localizedRuleName')) {
+    			localizedRuleNames[i] = rule.localizedRuleName;
+	    		i++;
+    		}
+    	}
+    	
+    }
+
+    return localizedRuleNames;
+}
+
+// Iterate through pageStats in the psiResults object and return the total number of bytes to load the website.
+function totalBytes(results) {
+    // Your code goes here!
+    var pageStats = results.pageStats;
+    var total = 0;
+
+    for (var key in pageStats) {
+    	if (pageStats.hasOwnProperty(key) && key.toLowerCase().includes('bytes')) {
+    		total += Number(pageStats[key]);
+    	}
+    }
+
+    return total;
+
+}
+
+// Below, you'll find a sample PS Insights JSON and two console.log statements to help you test your code!
+
+var psinsights = {
+ "kind": "pagespeedonline#result",
+ "id": "/speed/pagespeed",
+ "responseCode": 200,
+ "title": "PageSpeed Home",
+ "score": 90,
+ "pageStats": {
+  "numberResources": 22,
+  "numberHosts": 7,
+  "totalRequestBytes": "2761",
+  "numberStaticResources": 16,
+  "htmlResponseBytes": "91981",
+  "cssResponseBytes": "37728",
+  "imageResponseBytes": "13909",
+  "javascriptResponseBytes": "247214",
+  "otherResponseBytes": "8804",
+  "numberJsResources": 6,
+  "numberCssResources": 2
+ },
+ "formattedResults": {
+  "locale": "en_US",
+  "ruleResults": {
+    "AvoidBadRequests": {
+      "localizedRuleName": "Avoid bad requests",
+      "ruleImpact": 0.0
+    },
+    "MinifyJavaScript": {
+      "localizedRuleName": "Minify JavaScript",
+      "ruleImpact": 0.1417,
+      "urlBlocks": [
+      {
+        "header": {
+       "format": "Minifying the following JavaScript resources could reduce their size by $1 ($2% reduction).",
+       "args": [
+        {
+         "type": "BYTES",
+         "value": "1.3KiB"
+        },
+        {
+         "type": "INT_LITERAL",
+         "value": "0"
+        }
+       ]
+        },
+        "urls": [
+        {
+          "result": {
+         "format": "Minifying $1 could save $2 ($3% reduction).",
+         "args": [
+          {
+           "type": "URL",
+           "value": "http://code.google.com/js/codesite_tail.pack.04102009.js"
+          },
+          {
+           "type": "BYTES",
+           "value": "717B"
+          },
+          {
+           "type": "INT_LITERAL",
+           "value": "1"
+          }
+         ]
+        }
+       },
+       {
+        "result": {
+         "format": "Minifying $1 could save $2 ($3% reduction).",
+         "args": [
+          {
+           "type": "URL",
+           "value": "http://www.gmodules.com/ig/proxy?url\u003dhttp%3A%2F%2Fjqueryjs.googlecode.com%2Ffiles%2Fjquery-1.2.6.min.js"
+          },
+          {
+           "type": "BYTES",
+           "value": "258B"
+          },
+          {
+           "type": "INT_LITERAL",
+           "value": "0"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "SpriteImages": {
+    "localizedRuleName": "Combine images into CSS sprites",
+    "ruleImpact": 0.0
+   }
+  }
+ },
+ "version": {
+  "major": 1,
+  "minor": 11
+ }
+};
+
+// Try logging the outputs below to test your code!
+console.log(ruleList(psinsights));
+console.log(totalBytes(psinsights));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
